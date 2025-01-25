@@ -14,7 +14,7 @@ npm install gcip-cloud functions
 gcloud functions deploy before-create \
 --region=asia-northeast1 \
 --runtime nodejs20 \
----no-gen2 \
+--no-gen2 \
 --trigger-http \
 --allow-unauthenticated \
 --entry-point=beforeCreate \
