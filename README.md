@@ -1,5 +1,8 @@
 # blocking-function-sample
 
+<img width="1453" alt="Google Chrome 2025-01-25 14 29 05" src="https://github.com/user-attachments/assets/a3dd2e83-175a-4643-a11f-133eaa9ca08c" />
+<img width="809" alt="Google Chrome 2025-01-25 14 29 26" src="https://github.com/user-attachments/assets/533117cf-ac69-4954-ab8b-707b7af5ca74" />
+
 ## Identity Platform
 
 ```bash
