@@ -1,13 +1,43 @@
-# Welcome to Cloud Functions for Firebase for Python!
-# To get started, simply uncomment the below code or create your own.
-# Deploy with `firebase deploy`
+import firebase_admin
+from firebase_admin import auth, firestore
+from firebase_functions import identity_fn, https_fn
+from firebase_functions.firestore_fn import on_document_deleted, Event, DocumentSnapshot
 
-from firebase_functions import https_fn
-from firebase_admin import initialize_app
+firebase_admin.initialize_app()
 
-# initialize_app()
-#
-#
-# @https_fn.on_request()
-# def on_request_example(req: https_fn.Request) -> https_fn.Response:
-#     return https_fn.Response("Hello world!")
+@identity_fn.before_user_created(region="asia-northeast1")
+def before_create(event: identity_fn.AuthBlockingEvent) -> identity_fn.BeforeCreateResponse | None:
+    # パラメータを取得
+    user = event.data
+    additional_info = event.additional_user_info
+    credential = event.credential
+
+    # ログ出力
+    print(user)
+    print(additional_info)
+    print(credential)
+    print(credential.provider_id)
+
+    # 事前承認済みユーザーかどうかチェック
+    db = firestore.client()
+    ref = db.collection('allowedUsers')
+    doc = ref.where('email', '==', user.email).limit(1).get()
+    if not doc:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.NOT_FOUND,
+            message="アプリケーションにアクセスできません。"
+        )
+
+    # IdP チェック
+    if credential.provider_id != "oidc.entra-id":
+        return
+    
+    # ドメインチェック
+    if not user.email.endswith('@example.com'):
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.NOT_FOUND,
+            message="アプリケーションにアクセスできません。"
+        )
+
+    # ここまできたらアプリケーションへのアクセス許可
+    return

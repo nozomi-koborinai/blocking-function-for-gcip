@@ -71,3 +71,5 @@ node_modules/
 # Firebase config files
 .firebaserc
 firebase.json
+functions/venv
+__pycache__
