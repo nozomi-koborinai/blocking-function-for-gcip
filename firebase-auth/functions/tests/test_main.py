@@ -1,5 +1,10 @@
+import os
+import sys
 import unittest
-from ..main import evaluate_user, CheckResult
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from main import evaluate_user, CheckResult
 
 class TestEvaluateUser(unittest.TestCase):
     def test_skip_for_non_entraid_provider(self):
