@@ -24,7 +24,7 @@ class TestEvaluateUser(unittest.TestCase):
 
     def test_allowed_when_all_conditions_met(self):
         # プロバイダが oidc.entra-id で、ユーザーが承認済み、かつ email のドメインが正しい場合は ALLOWED
-        result = evaluate_user("oidc.entra-id", True, "user@example.com")
+        result = evaluate_user("oidc.entra-id", True, "user@foo.com")
         self.assertEqual(result, CheckResult.ALLOWED)
 
 if __name__ == '__main__':
