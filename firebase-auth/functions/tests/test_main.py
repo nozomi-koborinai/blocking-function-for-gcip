@@ -1,5 +1,5 @@
 import unittest
-from firebase_auth.functions.main import evaluate_user, CheckResult
+from ..main import evaluate_user, CheckResult
 
 class TestEvaluateUser(unittest.TestCase):
     def test_skip_for_non_entraid_provider(self):
